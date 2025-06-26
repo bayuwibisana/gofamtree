@@ -1,0 +1,631 @@
+{
+	"info": {
+		"_postman_id": "gofamtree-api-collection",
+		"name": "GoFamTree API",
+		"description": "Complete API collection for GoFamTree - Family Tree Management System\n\nThis collection includes all endpoints for managing:\n- Admin authentication\n- House management (family groups)\n- Person management\n- Relationship management\n- Family tree visualization\n\nBase URL: http://localhost:8080",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Admin Authentication",
+			"item": [
+				{
+					"name": "Register Admin",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"admin\",\n  \"password\": \"password123\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/admin/register",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"admin",
+								"register"
+							]
+						},
+						"description": "Register a new admin user with username and password"
+					},
+					"response": []
+				},
+				{
+					"name": "Admin Login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"admin\",\n  \"password\": \"password123\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/admin/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"admin",
+								"login"
+							]
+						},
+						"description": "Login with admin credentials to get access"
+					},
+					"response": []
+				}
+			],
+			"description": "Admin authentication endpoints for registration and login"
+		},
+		{
+			"name": "House Management",
+			"item": [
+				{
+					"name": "Create House",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Smith Family\",\n  \"created_by\": 1\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/houses",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"houses"
+							]
+						},
+						"description": "Create a new house (family group). Requires admin ID."
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Houses",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/houses",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"houses"
+							]
+						},
+						"description": "Retrieve all houses with admin information"
+					},
+					"response": []
+				},
+				{
+					"name": "Get House by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/houses/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"houses",
+								"1"
+							]
+						},
+						"description": "Get a specific house by ID with all persons"
+					},
+					"response": []
+				},
+				{
+					"name": "Update House",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Updated Smith Family\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/houses/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"houses",
+								"1"
+							]
+						},
+						"description": "Update house name by ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete House",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/houses/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"houses",
+								"1"
+							]
+						},
+						"description": "Delete a house and all associated persons and relations"
+					},
+					"response": []
+				}
+			],
+			"description": "House management endpoints for CRUD operations"
+		},
+		{
+			"name": "Person Management",
+			"item": [
+				{
+					"name": "Create Person",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"house_id\": 1,\n  \"name\": \"John Smith\",\n  \"contact\": \"john@example.com\",\n  \"description\": \"Father of the family\",\n  \"gender\": \"male\",\n  \"dob\": \"1980-01-15\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/persons",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"persons"
+							]
+						},
+						"description": "Create a new person in a house. DOB is optional and should be in YYYY-MM-DD format."
+					},
+					"response": []
+				},
+				{
+					"name": "Create Person (Female)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"house_id\": 1,\n  \"name\": \"Jane Smith\",\n  \"contact\": \"jane@example.com\",\n  \"description\": \"Mother of the family\",\n  \"gender\": \"female\",\n  \"dob\": \"1985-03-20\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/persons",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"persons"
+							]
+						},
+						"description": "Create a female person example"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Person (Child)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"house_id\": 1,\n  \"name\": \"Alice Smith\",\n  \"contact\": \"alice@example.com\",\n  \"description\": \"First child\",\n  \"gender\": \"female\",\n  \"dob\": \"2010-07-12\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/persons",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"persons"
+							]
+						},
+						"description": "Create a child person example"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Persons",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/persons",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"persons"
+							]
+						},
+						"description": "Get all persons across all houses"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Persons by House ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/persons?house_id=1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"persons"
+							],
+							"query": [
+								{
+									"key": "house_id",
+									"value": "1"
+								}
+							]
+						},
+						"description": "Filter persons by house ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Person by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/persons/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"persons",
+								"1"
+							]
+						},
+						"description": "Get a specific person by ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Person",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"John Smith Sr.\",\n  \"contact\": \"johnsr@example.com\",\n  \"description\": \"Updated father description\",\n  \"gender\": \"male\",\n  \"dob\": \"1980-01-15\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/persons/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"persons",
+								"1"
+							]
+						},
+						"description": "Update person information by ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Person",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/persons/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"persons",
+								"1"
+							]
+						},
+						"description": "Delete a person and all their relationships"
+					},
+					"response": []
+				}
+			],
+			"description": "Person management endpoints for CRUD operations"
+		},
+		{
+			"name": "Relationship Management",
+			"item": [
+				{
+					"name": "Create Spouse Relation",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"house_id\": 1,\n  \"person_id\": 1,\n  \"related_to_id\": 2,\n  \"relation_type\": \"spouse\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/relations",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"relations"
+							]
+						},
+						"description": "Create a spouse relationship between two persons"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Parent-Child Relation",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"house_id\": 1,\n  \"person_id\": 1,\n  \"related_to_id\": 3,\n  \"relation_type\": \"parent\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/relations",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"relations"
+							]
+						},
+						"description": "Create a parent-child relationship (person_id is parent of related_to_id)"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Sibling Relation",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"house_id\": 1,\n  \"person_id\": 3,\n  \"related_to_id\": 4,\n  \"relation_type\": \"sibling\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/relations",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"relations"
+							]
+						},
+						"description": "Create a sibling relationship between two persons"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Relations",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/relations",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"relations"
+							]
+						},
+						"description": "Get all relationships across all houses"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Relations by House ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/relations?house_id=1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"relations"
+							],
+							"query": [
+								{
+									"key": "house_id",
+									"value": "1"
+								}
+							]
+						},
+						"description": "Filter relations by house ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Relation by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/relations/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"relations",
+								"1"
+							]
+						},
+						"description": "Get a specific relationship by ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Relation",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"relation_type\": \"parent\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/relations/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"relations",
+								"1"
+							]
+						},
+						"description": "Update the relationship type"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Relation",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/relations/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"relations",
+								"1"
+							]
+						},
+						"description": "Delete a specific relationship"
+					},
+					"response": []
+				}
+			],
+			"description": "Relationship management endpoints for creating and managing family relationships"
+		},
+		{
+			"name": "Family Tree",
+			"item": [
+				{
+					"name": "Get Family Tree",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/family-tree/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"family-tree",
+								"1"
+							]
+						},
+						"description": "Get the complete family tree for a specific house including all persons and their relationships"
+					},
+					"response": []
+				}
+			],
+			"description": "Family tree visualization endpoint"
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8080",
+			"type": "string"
+		}
+	]
+} 
